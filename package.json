@@ -24,7 +24,8 @@
     "react-dom": "^18.2.0",
     "sirv": "^2.0.4",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "ts-log": "^2.2.5"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.0",

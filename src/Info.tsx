@@ -1,17 +1,21 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { dummyLogger, Logger } from 'ts-log';
 
 function Info() {
   const [count, setCount] = useState(0);
 
+  const log: Logger = dummyLogger;
+
+  const onButtonClick = useCallback(() => {
+    setCount((count) => count + 1);
+    log.info('testing logger');
+  }, []);
+
   return (
     <div className='p-2'>
-      <Button
-        size='lg'
-        className='mb-2'
-        onClick={() => setCount((count) => count + 1)}
-      >
+      <Button size='lg' className='mb-2' onClick={onButtonClick}>
         Count is {count}
       </Button>
       <Card className='text-left'>

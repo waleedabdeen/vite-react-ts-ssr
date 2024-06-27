@@ -1,13 +1,21 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import reactLogo from './assets/react.svg';
 import './App.css';
 import viteLogo from '/vite.svg';
 import shadcnLogo from './assets/shadcn-ui.png';
+import { LogContext } from '@/lib/log';
+import { Logger } from 'ts-log';
+import ConsoleLogger from '@/lib/consoleLogger';
 
 // Works also with SSR as expected
 const Info = lazy(() => import('./Info'));
 
 function App() {
+  const [log] = useState<Logger>(ConsoleLogger.create('App'));
+
+  useEffect(() => {
+    log.debug('App loaded correctly');
+  }, []);
   return (
     <>
       <div className='flex justify-center'>
@@ -26,7 +34,9 @@ function App() {
       </h1>
 
       <Suspense fallback={<p>Loading card component...</p>}>
-        <Info />
+        <LogContext.Provider value={{ logger: log }}>
+          <Info />
+        </LogContext.Provider>
       </Suspense>
 
       <p className='read-the-docs'>
